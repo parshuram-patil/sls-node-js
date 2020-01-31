@@ -9,3 +9,5 @@ functions:
     handler: handler.hello
   listBuckets:
     handler: handler.listBuckets
+  sendEmail:
+    handler: handler.sendEmail

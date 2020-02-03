@@ -82,7 +82,7 @@ module.exports.sendTemplatedEmail = async event => {
     Destination: {
       ToAddresses: [fromEmail],
     },
-    "TemplateData": "{\"toName\":\"" + getNameFromEmail(toEmail) + "\",\"fromName\":\"" + getNameFromEmail(fromEmail) + "\",\"fromEmail\":\"" + fromEmail + "\"}"
+    TemplateData: "{\"toName\":\"" + getNameFromEmail(toEmail) + "\",\"fromName\":\"" + getNameFromEmail(fromEmail) + "\",\"fromEmail\":\"" + fromEmail + "\"}"
   }
 
   var response = {

@@ -48,10 +48,22 @@ module.exports.sendEmail = async event => {
     },
   }
 
-  ses.sendEmail(params, function (err, res) {
-    if (err)
-      console.log("Error ---> " + err.message)
+  var response = {
+    statusCode: 500,
+    body: {}
+  }
 
-    console.log("Success ---> " + res.MessageId);
-  })
+  var sendPromise = ses.sendEmail(params).promise();
+  await sendPromise.then(function (result) {
+    response["statusCode"] = 200
+    response["body"] = {
+      messageId: result.MessageId
+    }
+  }).catch(function (reason) {
+    response["body"] = {
+      error: reason
+    }
+  });
+
+  return JSON.stringify(response)
 }

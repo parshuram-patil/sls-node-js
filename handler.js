@@ -71,3 +71,42 @@ module.exports.sendEmail = async event => {
 
   return JSON.stringify(response)
 }
+
+module.exports.sendTemplatedEmail = async event => {
+  var toEmail = "parshuram.patil@outlook.in"
+  var fromEmail = event.queryStringParameters.email
+
+  const params = {
+    Source: toEmail,
+    Template: "SampleTemplate",
+    Destination: {
+      ToAddresses: [fromEmail],
+    },
+    "TemplateData": "{\"toName\":\"" + getNameFromEmail(toEmail) + "\",\"fromName\":\"" + getNameFromEmail(fromEmail) + "\",\"fromEmail\":\"" + fromEmail + "\"}"
+  }
+
+  var response = {
+    statusCode: 500,
+    body: {}
+  }
+
+  var sendPromise = ses.sendTemplatedEmail(params).promise();
+  await sendPromise.then(function (result) {
+    response["statusCode"] = 200
+    response["body"] = {
+      messageId: result.MessageId
+    }
+  }).catch(function (reason) {
+    response["body"] = {
+      error: reason
+    }
+  });
+
+  return JSON.stringify(response)
+
+  function getNameFromEmail(email) {
+    var name = email.split('.')[0]
+
+    return name.charAt(0).toUpperCase() + name.substring(1);
+  }
+}

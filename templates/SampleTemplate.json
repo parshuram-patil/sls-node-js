@@ -1,0 +1,8 @@
+{
+    "Template": {
+      "TemplateName": "SampleTemplate",
+      "SubjectPart": "MyApp Application access to {{fromName}}",
+      "HtmlPart": "<h3>Hi {{toName}}</h3><p><b>{{fromName}}(<a href=mailto:{{fromEmail}}?Subject=MyApp%20Access%20Request target=_top>{{fromEmail}}</a>) has rerequested access to MyApp application</b></p><p>You can provide access by visiting the configurations at <a href=https://www.google.com/>Configurations</a>.</p>",
+      "TextPart": "Hi {{toName}},\n\n{{fromName}}(fromEmail) has rerequested access to MyApp application.\nTo provide access by visiting the configurations at https://www.google.com/"
+    }
+  }

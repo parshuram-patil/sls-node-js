@@ -5,7 +5,7 @@
   "httpMethod": "POST",
   "isBase64Encoded": true,
   "queryStringParameters": {
-    "email": "parasharam_patil@ymail.com"
+    "email": "parasharam.patil@siemens.com"
   },
   "multiValueQueryStringParameters": {
     "foo": [

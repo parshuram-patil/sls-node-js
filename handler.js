@@ -29,10 +29,14 @@ module.exports.listBuckets = async event => {
 }
 
 module.exports.sendEmail = async event => {
+
+  var fromEmail = "parshuram.patil@outlook.in"
+  var toEmail = event.queryStringParameters.email
+
   const params = {
-    Source: "parshuram.patil@outlook.in",
+    Source: fromEmail,
     Destination: {
-      ToAddresses: ["parasharam_patil@ymail.com"],
+      ToAddresses: [toEmail],
     },
     Message: {
       Subject: {

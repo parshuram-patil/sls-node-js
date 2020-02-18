@@ -74,16 +74,17 @@ module.exports.sendEmail = async event => {
 }
 
 module.exports.sendTemplatedEmail = async event => {
-  var toEmail = "parshuram.patil@outlook.in"
-  var fromEmail = event.queryStringParameters.email
+  var fromEmail = "parshuram.patil@outlook.in"
+  var toEmail = "parasharam.patil@siemens.com"
+  var byEmail = event.queryStringParameters.email
 
   const params = {
-    Source: toEmail,
+    Source: fromEmail,
     Template: "SampleTemplate",
     Destination: {
-      ToAddresses: [fromEmail],
+      ToAddresses: [toEmail],
     },
-    TemplateData: "{\"toName\":\"" + getNameFromEmail(toEmail) + "\",\"fromName\":\"" + getNameFromEmail(fromEmail) + "\",\"fromEmail\":\"" + fromEmail + "\"}"
+    TemplateData: "{\"toName\":\"" + getNameFromEmail(toEmail) + "\",\"fromName\":\"" + getNameFromEmail(byEmail) + "\",\"fromEmail\":\"" + byEmail + "\"}"
   }
 
   var response = {

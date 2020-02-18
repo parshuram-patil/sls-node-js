@@ -3,13 +3,14 @@ service: first-node-js-app
 provider:
   name: aws
   runtime: nodejs12.x
+  profile: sandbox
 
 functions:
-  hello:
+  Hello:
     handler: handler.hello
-  listBuckets:
+  ListBuckets:
     handler: handler.listBuckets
-  sendEmail:
+  SendEmail:
     handler: handler.sendEmail
   SendTemplatedEmail:
     handler: handler.sendTemplatedEmail

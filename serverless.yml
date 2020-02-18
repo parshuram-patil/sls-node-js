@@ -14,3 +14,5 @@ functions:
     handler: handler.sendEmail
   SendTemplatedEmail:
     handler: handler.sendTemplatedEmail
+  HttpGotClient:
+    handler: handler.httpGotClient

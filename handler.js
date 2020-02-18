@@ -3,6 +3,7 @@
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3()
 var ses = new AWS.SES({ region: 'eu-west-1' });
+var got = require('got')
 
 module.exports.hello = async event => {
   return {
@@ -109,4 +110,14 @@ module.exports.sendTemplatedEmail = async event => {
 
     return name.charAt(0).toUpperCase() + name.substring(1);
   }
+}
+
+module.exports.httpGotClient = async event => {
+  got('https://www.google.com/')
+    .then(response => {
+      console.log(response.statusCode)
+    })
+    .catch(error => {
+      console.log(error.response.body);
+    })
 }

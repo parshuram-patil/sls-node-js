@@ -74,7 +74,7 @@ module.exports.sendEmail = async event => {
 }
 
 module.exports.sendTemplatedEmail = async event => {
-  var fromEmail = "parshuram.patil@outlook.in"
+  var fromEmail = "Parshuram Patil <parshuram.patil@outlook.in>"
   var toEmail = "parasharam.patil@siemens.com"
   var byEmail = event.queryStringParameters.email
 

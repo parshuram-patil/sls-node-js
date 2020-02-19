@@ -116,6 +116,60 @@ module.exports.sendTemplatedEmail = async event => {
   }
 }
 
+module.exports.sendBulkTemplatedEmail = async event => {
+  var fromEmail = "Parshuram Patil <parshuram.patil@outlook.in>"
+  var toEmails = ["parasharam.patil@siemens.com", "vidya.sangle@siemens.com"]
+  var byEmail = event.queryStringParameters.email
+
+  const params = {
+    Source: fromEmail,
+    Template: "SampleTemplate",
+    Destinations: [
+      {
+        Destination: {
+          ToAddresses: [toEmails[0]]
+        },
+        ReplacementTemplateData: "{\"toName\":\"" + getNameFromEmail(toEmails[0]) + "\",\"fromName\":\"" + getNameFromEmail(byEmail) + "\",\"fromEmail\":\"" + byEmail + "\"}"
+      },
+      {
+        Destination: {
+          ToAddresses: [toEmails[1]]
+        },
+        ReplacementTemplateData: "{\"toName\":\"" + getNameFromEmail(toEmails[1]) + "\",\"fromName\":\"" + getNameFromEmail(byEmail) + "\",\"fromEmail\":\"" + byEmail + "\"}"
+      }
+    ],
+    DefaultTemplateData: "{\"toName\":\"\",\"fromName\":\"" + getNameFromEmail(byEmail) + "\",\"fromEmail\":\"" + byEmail + "\"}",
+    ReplyToAddresses: [
+      byEmail
+    ],
+  }
+
+  var response = {
+    statusCode: 500,
+    body: {}
+  }
+
+  var sendPromise = ses.sendBulkTemplatedEmail(params).promise();
+  await sendPromise.then(function (result) {
+    response["statusCode"] = 200
+    response["body"] = {
+      messageId: result.MessageId
+    }
+  }).catch(function (reason) {
+    response["body"] = {
+      error: reason
+    }
+  });
+
+  return JSON.stringify(response)
+
+  function getNameFromEmail(email) {
+    var name = email.split('.')[0]
+
+    return name.charAt(0).toUpperCase() + name.substring(1);
+  }
+}
+
 module.exports.httpGotClient = async event => {
   got('https://www.google.com/')
     .then(response => {

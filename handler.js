@@ -6,11 +6,13 @@ var ses = new AWS.SES({ region: 'eu-west-1' });
 var got = require('got')
 
 module.exports.hello = async event => {
+
   return {
     statusCode: 200,
     body: JSON.stringify(
       {
         message: 'Go Serverless v1.0! Your function executed successfully!',
+        env: process.env.TEST_ENV,
         input: event,
       },
       null,

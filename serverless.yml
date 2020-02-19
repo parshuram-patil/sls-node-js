@@ -8,6 +8,8 @@ provider:
 functions:
   Hello:
     handler: handler.hello
+    environment: 
+      TEST_ENV: This is Test Environment Variable  
   ListBuckets:
     handler: handler.listBuckets
   SendEmail:

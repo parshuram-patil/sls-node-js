@@ -135,7 +135,7 @@ module.exports.sendBulkTemplatedEmail = async event => {
         Destination: {
           ToAddresses: [toEmails[1]]
         },
-        ReplacementTemplateData: "{\"toName\":\"" + getNameFromEmail(toEmails[1]) + "\",\"fromName\":\"" + getNameFromEmail(byEmail) + "\",\"fromEmail\":\"" + byEmail + "\"}"
+        ReplacementTemplateData: "{\"fromName\":\"" + getNameFromEmail(byEmail) + "\",\"fromEmail\":\"" + byEmail + "\"}"
       }
     ],
     DefaultTemplateData: "{\"toName\":\"\",\"fromName\":\"" + getNameFromEmail(byEmail) + "\",\"fromEmail\":\"" + byEmail + "\"}",

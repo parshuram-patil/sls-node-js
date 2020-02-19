@@ -124,20 +124,7 @@ module.exports.sendBulkTemplatedEmail = async event => {
   const params = {
     Source: fromEmail,
     Template: "SampleTemplate",
-    Destinations: [
-      {
-        Destination: {
-          ToAddresses: [toEmails[0]]
-        },
-        ReplacementTemplateData: "{\"toName\":\"" + getNameFromEmail(toEmails[0]) + "\",\"fromName\":\"" + getNameFromEmail(byEmail) + "\",\"fromEmail\":\"" + byEmail + "\"}"
-      },
-      {
-        Destination: {
-          ToAddresses: [toEmails[1]]
-        },
-        ReplacementTemplateData: "{\"fromName\":\"" + getNameFromEmail(byEmail) + "\",\"fromEmail\":\"" + byEmail + "\"}"
-      }
-    ],
+    Destinations: getDestinations(toEmails, byEmail),
     DefaultTemplateData: "{\"toName\":\"\",\"fromName\":\"" + getNameFromEmail(byEmail) + "\",\"fromEmail\":\"" + byEmail + "\"}",
     ReplyToAddresses: [
       byEmail
@@ -167,6 +154,22 @@ module.exports.sendBulkTemplatedEmail = async event => {
     var name = email.split('.')[0]
 
     return name.charAt(0).toUpperCase() + name.substring(1);
+  }
+
+  function getDestinations(toEmails, byEmail) {
+    var Destinations = []
+    toEmails.forEach(toEmail => {
+      Destinations.push(
+        {
+          Destination: {
+            ToAddresses: [toEmail]
+          },
+          ReplacementTemplateData: "{\"toName\":\"" + getNameFromEmail(toEmail) + "\",\"fromName\":\"" + getNameFromEmail(byEmail) + "\",\"fromEmail\":\"" + byEmail + "\"}"
+        }
+      )
+    })
+
+    return Destinations;
   }
 }
 

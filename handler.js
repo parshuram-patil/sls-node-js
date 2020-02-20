@@ -140,10 +140,9 @@ module.exports.sendBulkTemplatedEmail = async event => {
 
   var sendPromise = ses.sendBulkTemplatedEmail(params).promise();
   await sendPromise.then(function (result) {
+    console.log("------> \n" + JSON.stringify(result))
     response["statusCode"] = 200
-    response["body"] = {
-      messageId: result.MessageId
-    }
+    response["body"] = JSON.stringify(result)
   }).catch(function (reason) {
     response["body"] = {
       error: reason
